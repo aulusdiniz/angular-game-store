@@ -1,0 +1,37 @@
+<app-menu> </app-menu>
+
+<h1 class="textForTittle">Check Your Shopping Bag</h1>
+
+  <div class="textForPurchase">
+    <button class="amountButton"> <p>Check Amount:</p> {{totalPrice}}</button>
+  </div>  
+
+
+
+
+
+<br> 
+<div class="textForPurchase" >
+    <button  class="purchaseButton" onclick="location.href='home'"  (click)="productsService.buyProduct()">Purchase</button>
+</div>
+
+<div class="flexboxContainer">
+    <div style="border:2px" *ngFor="let product of productsService.shoppingCartList"> 
+                   
+      <div class="row">
+        <div class="flexboxItem">
+          <div class="picturecontainer">
+            <img src="{{product.image}}" class="picture" alt="">
+          </div>
+          <div class="centerEverything">
+            <h4 class="letter">{{product.name}}</h4>
+            <h4>{{product.price | currency}}</h4>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+   </div>
+   
+  
+ 

@@ -1,0 +1,15 @@
+<ul>
+    <li><a class="signup" href="#signup">Sign-up</a></li>
+    <li [routerLink]="['/home']" (click)="productsService.filterBest('Our Best Sellers')"><a>Home</a></li>
+    <li [routerLink]="['/home']" (click)="productsService.filterByCategory('Lipstick')"><a >Lipsticks</a></li>
+    <li [routerLink]="['/home']" (click)="productsService.filterByCategory('Mascara')"><a >Mascara</a></li>
+    <li [routerLink]="['/home']" (click)="productsService.filterByCategory('Foundation')"><a >Foundation</a></li>
+    <li [routerLink]="['/home']" (click)="productsService.filterByCategory('Eyebrow')"><a >Eyebrows</a></li>
+    <li [routerLink]="['/home']" (click)="productsService.filterByCategory('Eyeliner')"><a  >Eyeliners</a></li>
+    <li [routerLink]="['/home']" (click)="productsService.filterByCategory('Eyeshadow')"><a >Eyeshadows</a></li>
+    <li><a [routerLink]="['/shoppingcart']">Shopping Bag </a></li>
+    <li><a>Balance: {{usersService.currentUser.balance | currency}}</a></li>
+</ul>
+
+
+
