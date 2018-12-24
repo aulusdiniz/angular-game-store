@@ -6,6 +6,8 @@ import { AdmPageComponent } from './components/adm-page/adm-page.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { AuthProvider } from './providers/auth.provider';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -19,9 +21,12 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AuthProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

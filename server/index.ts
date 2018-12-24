@@ -6,9 +6,14 @@ const bodyParser = require('body-parser')
 const app = express();
 app.use(cors());
 app.use( bodyParser.json());
-// app.use(bodyParser.urlencoded({extended: true})); 
+// app.use(bodyParser.urlencoded({extended: true}));
 
 let userCash = 400;
+
+app.get('/login', (request, response) => {
+  console.log("receiving on /login :", request);
+  response.send({test: 'ok'});
+});
 
 app.get('/cash', (request, response) => {
     response.send({cash: userCash});

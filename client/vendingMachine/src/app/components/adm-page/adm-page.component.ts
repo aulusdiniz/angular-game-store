@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthProvider } from '../../providers/auth.provider'
 
 @Component({
   selector: 'app-adm-page',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdmPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authProvider: AuthProvider) { }
 
   ngOnInit() {
+  }
+
+  submit() {
+    let result = this.authProvider.login().then((res) => {
+      console.log("trying to submit data: ", result);
+    });
   }
 
 }
