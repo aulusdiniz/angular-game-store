@@ -9,9 +9,12 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class MenuComponent implements OnInit {
 
+  userLogged: any;
+
   constructor(public productsService: ProductsService, public usersService: UsersService) { }
 
   ngOnInit() {
+    this.userLogged = localStorage.logged || "Log in";
   }
 
 }

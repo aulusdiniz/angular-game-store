@@ -1,19 +1,21 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AdmPageComponent } from './components/adm-page/adm-page.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
+import { LoginPageComponent } from './components/login-page/login-page.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { AuthProvider } from './providers/auth.provider';
-import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdmPageComponent,
+    LoginPageComponent,
     HomePageComponent,
     HomePageComponent,
     MenuComponent,
@@ -22,7 +24,9 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     AuthProvider

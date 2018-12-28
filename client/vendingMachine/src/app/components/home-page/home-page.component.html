@@ -1,19 +1,14 @@
 <app-menu></app-menu>
 
 <br>
-
 <img class="bannerPic" src="../../../assets//pictures/banner.png" alt="benefit">
-
-
 <br>
-  
 
 <h1 class="textForTittle">{{productsService.categoriesTitle}}</h1>
 <hr class="style-one">
 
-
-<div class="flexboxContainer"> 
-  <div *ngFor="let product of productsService.displayProductList"> 
+<div class="flexboxContainer">
+  <div *ngFor="let product of productsService.displayProductList">
     <div class="row">
       <div class="flexboxItem">
         <div class="picturecontainer">
@@ -33,14 +28,14 @@
     </div>
   </div>
 </div>
- 
+
 <br>
 
 <h1 class="textForTittle">All our products</h1>
 <hr class="style-one">
 
-<div class="flexboxContainer"> 
-    <div *ngFor="let product of productsService.allProductsList"> 
+<div class="flexboxContainer">
+    <div *ngFor="let product of productsService.allProductsList">
       <div class="row">
         <div class="flexboxItem">
           <div class="picturecontainer">
@@ -57,4 +52,3 @@
       </div>
     </div>
 </div>
-

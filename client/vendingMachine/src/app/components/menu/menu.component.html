@@ -1,5 +1,4 @@
 <ul>
-    <li><a class="signup" href="#signup">Sign-up</a></li>
     <li [routerLink]="['/home']" (click)="productsService.filterBest('Our Best Sellers')"><a>Home</a></li>
     <li [routerLink]="['/home']" (click)="productsService.filterByCategory('Lipstick')"><a >Lipsticks</a></li>
     <li [routerLink]="['/home']" (click)="productsService.filterByCategory('Mascara')"><a >Mascara</a></li>
@@ -9,7 +8,6 @@
     <li [routerLink]="['/home']" (click)="productsService.filterByCategory('Eyeshadow')"><a >Eyeshadows</a></li>
     <li><a [routerLink]="['/shoppingcart']">Shopping Bag </a></li>
     <li><a>Balance: {{usersService.currentUser.balance | currency}}</a></li>
+    <li class="user-info" *ngIf="userLogged == 'Log in'" [routerLink]="['/login']"><a>Sign-up</a></li>
+    <li class="user-info" *ngIf="userLogged != 'Log in'"><a>{{ userLogged | uppercase }}</a></li>
 </ul>
-
-
-
