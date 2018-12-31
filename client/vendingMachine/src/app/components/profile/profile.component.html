@@ -1,0 +1,23 @@
+<app-menu></app-menu>
+<img id="bgPic" src="/../../assets//pictures/background/b4.jpg" alt="">
+
+<form #f="ngForm">
+  <h1 class="titleProfile">Hello, </h1>
+  <!-- <hr class="style-one"> -->
+
+  <table class="depositTable">
+    <img class="user" src="/../../assets//pictures/user2.png" alt=""> <br>
+    <div>Name</div>
+    <div>Surname</div>
+    <div>Card number</div>
+    <br>
+    <div>Define the amount you want to deposit:</div> 
+    <input type="number" name="deposit" id="deposit" [(ngModel)]="deposit"> <br>
+    <br><br><br>
+    <button (click)="increaseBalance()" class="depositBtn">Deposit</button>
+  </table>
+
+</form>
+
+
+<br><br><br>

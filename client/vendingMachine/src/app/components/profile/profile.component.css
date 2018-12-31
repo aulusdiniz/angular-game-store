@@ -1,0 +1,47 @@
+.titleProfile {
+    text-align: center;
+    padding-top: 6%;
+}
+
+hr.style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    width: 1000px;
+    background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
+    background-image: -moz-linear-gradient(left, #ccc, #333, #ccc);
+    background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
+    background-image: -o-linear-gradient(left, #ccc, #333, #ccc);
+}
+
+.depositTable {
+    text-align: center;
+    padding: 5%;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(248, 242, 241);
+    font-size: 18px;
+    box-shadow: 3px 8px 15px 5px grey;
+}
+
+.depositBtn {
+    background-color:  palevioletred;
+    color: antiquewhite;
+    box-shadow:  0 6px 20px 0 rosybrown;
+    padding: 1.5px;
+    width: 80px;
+    height: 25px;
+}
+
+.user {
+    width: 120px;
+    padding: 5%;
+}
+
+#bgPic {
+    width: 100%;
+    position: absolute;
+    opacity: 0.15;
+    z-index: -1;
+  }
