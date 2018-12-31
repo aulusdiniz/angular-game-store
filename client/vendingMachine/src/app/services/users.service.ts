@@ -6,12 +6,12 @@ import { Injectable } from '@angular/core';
 export class UsersService {
 
   public usersList: Array<any> = [
-    {name: 'Jane A.', balance: 500}
+    {name: 'Jane A.', balance: 900}
   ]
 
   public currentUser;
-  
-  constructor() { 
+
+  constructor() {
     this.currentUser = this.usersList[0];
   }
 }

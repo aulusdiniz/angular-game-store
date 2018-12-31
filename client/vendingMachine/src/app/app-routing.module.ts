@@ -8,6 +8,7 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'login', component: LoginPageComponent },
+  { path: 'logout', redirectTo: '/'},
   { path: 'home', component: HomePageComponent },
   { path: 'shoppingcart', component: ShoppingCartComponent }
 ];

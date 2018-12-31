@@ -4,7 +4,7 @@
 <img class="bannerPic" src="../../../assets//pictures/banner.png" alt="benefit">
 <br>
 
-<h1 class="textForTittle">{{productsService.categoriesTitle}}</h1>
+<h1 class="textForTitle">Products on {{productsService.categoriesTitle}} catalog</h1>
 <hr class="style-one">
 
 <div class="flexboxContainer">
@@ -15,9 +15,9 @@
           <img src="{{product.image}}" class="picture" alt="">
         </div>
         <div class="centerEverything">
-          <h4 class="letter">{{product.name}}</h4>
-          <h4>{{product.price | currency}}</h4>
-          <h4>Quantity: {{product.quantity}}</h4>
+          <h4 class="offer-highlight">{{product.name}}</h4>
+          <h4 class="offer-highlight">{{product.price | currency}}</h4>
+          <h4 class="offer">{{product.quantity}} Units in stock</h4>
 
           <!-- <input type="number" class="numberButton" min="0" max="10" > -->
           <br>
@@ -31,7 +31,7 @@
 
 <br>
 
-<h1 class="textForTittle">All our products</h1>
+<h1 class="textForTitle">All our products</h1>
 <hr class="style-one">
 
 <div class="flexboxContainer">
@@ -42,9 +42,9 @@
             <img src="{{product.image}}" class="picture" alt="">
           </div>
           <div class="centerEverything">
-            <h4 class="letter">{{product.name}}</h4>
-            <h4>{{product.price | currency}}</h4>
-            <h4>Quantity: {{product.quantity}}</h4>
+            <h4 class="offer-highlight">{{product.name}}</h4>
+            <h4 class="offer-highlight">{{product.price | currency}}</h4>
+            <h4 class="offer">{{product.quantity}} Units in stock</h4>
             <br>
             <button class="button1" (click)="productsService.clickProduct(product.id)">Add to cart </button>
           </div>

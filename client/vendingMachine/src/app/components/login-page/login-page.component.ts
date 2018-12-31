@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthProvider } from '../../providers/auth.provider'
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'login-page',
@@ -13,12 +14,14 @@ export class LoginPageComponent implements OnInit {
   fType: any;
   // router: Router;
 
-  constructor(private authProvider: AuthProvider, private formBuilder: FormBuilder, private router: Router) {
+  constructor(private authProvider: AuthProvider, private formBuilder: FormBuilder,
+     private router: Router, private route: ActivatedRoute, private usersService: UsersService) {
     this.setupFormBuilder();
   }
 
   ngOnInit() {
     this.fType = 'signin';
+    console.log(this.route.paramMap);
   }
 
   save() {
@@ -33,10 +36,17 @@ export class LoginPageComponent implements OnInit {
     let result = this.authProvider.login(payload).then((res: any) => {
       console.log("result: ", res);
       if(res.status == 'authorized') {
-        this.router.navigate(['/home', { id: 'heroId', foo: 'foo' }]);
         localStorage.setItem('logged', payload.login);
+        this.usersService.currentUser = payload;
+        this.router.navigate(['/home']);
       }
     });
+  }
+
+  logout(){
+    localStorage.setItem('logged', '');
+    this.usersService.currentUser = "";
+    this.router.navigate(['/home']);
   }
 
   setupFormBuilder() {

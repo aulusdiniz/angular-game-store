@@ -6,8 +6,15 @@
     <li [routerLink]="['/home']" (click)="productsService.filterByCategory('Eyebrow')"><a >Eyebrows</a></li>
     <li [routerLink]="['/home']" (click)="productsService.filterByCategory('Eyeliner')"><a  >Eyeliners</a></li>
     <li [routerLink]="['/home']" (click)="productsService.filterByCategory('Eyeshadow')"><a >Eyeshadows</a></li>
-    <li><a [routerLink]="['/shoppingcart']">Shopping Bag </a></li>
-    <li><a>Balance: {{usersService.currentUser.balance | currency}}</a></li>
     <li class="user-info" *ngIf="userLogged == 'Log in'" [routerLink]="['/login']"><a>Sign-up</a></li>
-    <li class="user-info" *ngIf="userLogged != 'Log in'"><a>{{ userLogged | uppercase }}</a></li>
+    <li class="user-info" *ngIf="userLogged != 'Log in'" (click)="showDetails()"><a><i class="material-icons">perm_identity</i></a>
+    </li>
 </ul>
+
+<div class="pop-user-info" *ngIf="userDetail">
+  <a>{{ userLogged | uppercase }}</a>
+  <!-- <a [routerLink]="['/logout']" (click)="clearLogin()">Logout</a> -->
+  <a [routerLink]="['/shoppingcart']">View cart</a>
+  <a> Cash {{usersService.currentUser.balance | currency}}</a>
+  <a (click)="clearLogin()">Logout</a>
+</div>

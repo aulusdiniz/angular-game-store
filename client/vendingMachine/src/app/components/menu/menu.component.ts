@@ -10,6 +10,7 @@ import { UsersService } from 'src/app/services/users.service';
 export class MenuComponent implements OnInit {
 
   userLogged: any;
+  userDetail: Boolean;
 
   constructor(public productsService: ProductsService, public usersService: UsersService) { }
 
@@ -17,4 +18,13 @@ export class MenuComponent implements OnInit {
     this.userLogged = localStorage.logged || "Log in";
   }
 
+  showDetails() {
+    this.userDetail = this.userDetail? false : true
+  }
+
+  clearLogin() {
+    localStorage.logged = "";
+    this.userLogged = "Log in";
+    this.userDetail = false;
+  }
 }
