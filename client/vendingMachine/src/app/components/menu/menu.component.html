@@ -15,6 +15,6 @@
   <a>{{ userLogged | uppercase }}</a>
   <!-- <a [routerLink]="['/logout']" (click)="clearLogin()">Logout</a> -->
   <a [routerLink]="['/shoppingcart']">View cart</a>
-  <a> Cash {{usersService.currentUser.balance | currency}}</a>
+  <a> Cash {{ usersService.currentUser.balance | currency }}</a>
   <a (click)="clearLogin()">Logout</a>
 </div>

@@ -19,13 +19,20 @@ a {
 }
 
 h2 {
+  font-family: sans-serif;
   text-align: center;
   font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
   display:inline-block;
-  margin: 40px 8px 10px 8px;
+  margin: 20px 8px 10px 8px;
   color: #cccccc;
+}
+
+h3 {
+  font-family: sans-serif;
+  font-size: 0.9rem;
+  font-weight: normal;
 }
 
 /* STRUCTURE */
@@ -62,8 +69,6 @@ h2 {
   border-radius: 0 0 10px 10px;
 }
 
-
-
 /* TABS */
 
 h2.inactive {
@@ -71,8 +76,8 @@ h2.inactive {
 }
 
 h2.active {
-  color: #0d0d0d;
-  border-bottom: 2px solid #5fbae9;
+  color: #f1b3be;
+  border-bottom: 2px solid #ffc0cb;
 }
 
 
@@ -80,7 +85,7 @@ h2.active {
 /* FORM TYPOGRAPHY*/
 
 input[type=button], input[type=submit], input[type=reset]  {
-  background-color: #56baed;
+  background-color: #ffc0cb;
   border: none;
   color: white;
   padding: 15px 80px;
@@ -102,7 +107,7 @@ input[type=button], input[type=submit], input[type=reset]  {
 }
 
 input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
-  background-color: #39ace7;
+  background-color: #ffc0cb;
 }
 
 input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
@@ -124,7 +129,7 @@ input[type=text] {
   font-size: 16px;
   margin: 5px;
   width: 85%;
-  border: 2px solid #f6f6f6;
+  border: 2px solid #ffc0cb;
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -ms-transition: all 0.5s ease-in-out;
@@ -136,7 +141,7 @@ input[type=text] {
 
 input[type=text]:focus {
   background-color: #fff;
-  border-bottom: 2px solid #5fbae9;
+  border-bottom: 2px solid #f1b3be;
 }
 
 input[type=text]:placeholder {
@@ -225,6 +230,19 @@ input[type=text]:placeholder {
   animation-delay: 1s;
 }
 
+input[type="submit"] {
+  background-color: #f1b3be;
+}
+
+
+input[type="submit"]:hover {
+  background-color: #ffc0cb;
+}
+
+.underlineHover.passwd-recover {
+  color: pink;
+}
+
 /* Simple CSS3 Fade-in Animation */
 .underlineHover:after {
   display: block;
@@ -232,19 +250,18 @@ input[type=text]:placeholder {
   bottom: -10px;
   width: 0;
   height: 2px;
-  background-color: #56baed;
+  background-color: #ffc0cb;
   content: "";
   transition: width 0.2s;
 }
 
 .underlineHover:hover {
-  color: #0d0d0d;
+  color: #f1b3be;
 }
 
 .underlineHover:hover:after{
   width: 100%;
 }
-
 
 /* OTHERS */
 
