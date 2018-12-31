@@ -15,17 +15,18 @@ let userCash = 400;
 // mocking information in arrays
 let users = [];
 let products = [];
-//register regular users
+//register regular users login & passwd
 app.post('/register', (request, response) => {
     console.log("[debug] receiving on /register :", request.body);
     let data = request.body;
     let checkCreated = users.filter((x) => x.login == data.login);
     if (checkCreated.length == 0)
-        users.push({ login: data.login, password: data.password });
+        users.push({ login: data.login, password: data.password }); //keeps admin injections via post away
     else
         response.send({ status: "this user already exist" });
     response.send({ status: "user created now" });
 });
+//verify if the sent login & passwd is in data structure 'users'
 app.post('/login', (request, response) => {
     console.log("[debug] receiving on /login :", request.body);
     let data = request.body;
@@ -35,6 +36,7 @@ app.post('/login', (request, response) => {
     else
         response.send({ status: 'unauthorized' });
 });
+//list all users
 app.get('/users', (request, response) => {
     console.log("[debug] receiving on /users :", request.body);
     response.send(users);

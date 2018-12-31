@@ -43,12 +43,6 @@ export class LoginPageComponent implements OnInit {
     });
   }
 
-  logout(){
-    localStorage.setItem('logged', '');
-    this.usersService.currentUser = "";
-    this.router.navigate(['/home']);
-  }
-
   setupFormBuilder() {
     let controlConfig = {
       'login': ['', Validators.required],
