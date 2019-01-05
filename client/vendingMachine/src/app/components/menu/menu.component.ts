@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'src/app/services/products.service';
 import { UsersService } from 'src/app/services/users.service';
+import { Router } from "@angular/router"
 
 @Component({
   selector: 'app-menu',
@@ -9,13 +10,25 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class MenuComponent implements OnInit {
 
-  userLogged: any;
-  userDetail: Boolean;
+  public userLogged: any;
+  public userDetail: Boolean;
+  private userCash: number;
 
-  constructor(public productsService: ProductsService, public usersService: UsersService) { }
+  constructor(private productsService: ProductsService, private usersService: UsersService,
+    private router: Router) { }
 
   ngOnInit() {
     this.userLogged = localStorage.logged || "Log in";
+    this.usersService.getUserBalance()
+      .subscribe(
+        (result: any) => {
+          console.log(result);
+          this.userCash = result.cash;
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
   }
 
   showDetails() {
@@ -26,5 +39,8 @@ export class MenuComponent implements OnInit {
     localStorage.logged = "";
     this.userLogged = "Log in";
     this.userDetail = false;
+    this.router.navigate(['/']);
   }
+
+
 }

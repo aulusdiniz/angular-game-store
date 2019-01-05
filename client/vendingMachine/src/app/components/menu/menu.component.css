@@ -9,7 +9,6 @@ ul {
   background-color: #333;
 }
 
-
 li {
   float: left;
 }
@@ -18,8 +17,8 @@ li a {
   display: block;
   color: white;
   text-align: center;
-  text-decoration: none;
   padding: 14px 16px;
+  text-decoration: none;
   cursor: pointer;
 }
 
@@ -57,4 +56,25 @@ div a:hover {
   text-decoration: none;
   color: white;
   font-size: 0.9rem;
+}
+
+.pop-user-info a i{
+  float: left;
+  padding-right: 10px;
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
+.logo {
+  padding-left: auto;
+  padding-right: auto;
+  width: 250px;
+  height: auto;
+}
+
+.logoCont {
+  text-align: center;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  background-color: rgb(245, 227, 224);
 }

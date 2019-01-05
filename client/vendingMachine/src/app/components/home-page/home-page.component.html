@@ -1,16 +1,14 @@
 <app-menu></app-menu>
-
 <br>
 <img class="bannerPic" src="../../../assets//pictures/banner.png" alt="benefit">
 <br>
-
-<h1 class="textForTitle">Products on {{productsService.categoriesTitle}} catalog</h1>
+<h1 class="textForTitle">{{productsService.categoriesTitle}}</h1>
 <hr class="style-one">
-
+<br><br>
 <div class="flexboxContainer">
   <div *ngFor="let product of productsService.displayProductList">
     <div class="row">
-      <div class="flexboxItem">
+      <div class="flexboxItem" id="hoverItem">
         <div class="picturecontainer">
           <img src="{{product.image}}" class="picture" alt="">
         </div>
@@ -18,26 +16,21 @@
           <h4 class="offer-highlight">{{product.name}}</h4>
           <h4 class="offer-highlight">{{product.price | currency}}</h4>
           <h4 class="offer">{{product.quantity}} Units in stock</h4>
-
-          <!-- <input type="number" class="numberButton" min="0" max="10" > -->
           <br>
-          <button class="button1" (click)="productsService.clickProduct(product.id)">Add to cart</button>
-
+          <button class="button1" (click)="productsService.addToCart(product.id)">Add to cart</button>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 <br>
-
 <h1 class="textForTitle">All our products</h1>
 <hr class="style-one">
-
+<br><br>
 <div class="flexboxContainer">
     <div *ngFor="let product of productsService.allProductsList">
       <div class="row">
-        <div class="flexboxItem">
+        <div class="flexboxItem" id="hoverItemAll">
           <div class="picturecontainer">
             <img src="{{product.image}}" class="picture" alt="">
           </div>
@@ -46,9 +39,10 @@
             <h4 class="offer-highlight">{{product.price | currency}}</h4>
             <h4 class="offer">{{product.quantity}} Units in stock</h4>
             <br>
-            <button class="button1" (click)="productsService.clickProduct(product.id)">Add to cart </button>
+            <button class="button1" (click)="productsService.addToCart(product.id)">Add to cart</button>
           </div>
         </div>
       </div>
     </div>
 </div>
+<br><br><br>

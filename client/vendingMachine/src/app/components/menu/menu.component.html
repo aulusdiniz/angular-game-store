@@ -1,3 +1,7 @@
+<div class="logoCont">
+    <img class="logo" src="/../../assets//pictures/vendingmachine.png" alt="">
+</div>
+
 <ul>
     <li [routerLink]="['/home']" (click)="productsService.filterBest('Our Best Sellers')"><a>Home</a></li>
     <li [routerLink]="['/home']" (click)="productsService.filterByCategory('Lipstick')"><a >Lipsticks</a></li>
@@ -12,9 +16,8 @@
 </ul>
 
 <div class="pop-user-info" *ngIf="userDetail">
-  <a>{{ userLogged | uppercase }}</a>
-  <!-- <a [routerLink]="['/logout']" (click)="clearLogin()">Logout</a> -->
-  <a [routerLink]="['/shoppingcart']">View cart</a>
-  <a> Cash {{ usersService.currentUser.balance | currency }}</a>
-  <a (click)="clearLogin()">Logout</a>
+  <a [routerLink]="['/profile']"><i class="material-icons">perm_identity</i>{{ userLogged | titlecase }}</a>
+  <a><i class="material-icons">local_atm</i> {{ userCash | currency }}</a>
+  <a [routerLink]="['/shoppingcart']"><i class="material-icons">local_grocery_store</i>View cart</a>
+  <a (click)="clearLogin()"><i class="material-icons">meeting_room</i>Logout</a>
 </div>

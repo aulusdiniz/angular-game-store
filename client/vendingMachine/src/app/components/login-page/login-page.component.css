@@ -47,7 +47,7 @@ h3 {
   padding: 20px;
 }
 
-#formContent {
+.formContent {
   -webkit-border-radius: 10px 10px 10px 10px;
   border-radius: 10px 10px 10px 10px;
   background: #fff;
@@ -60,7 +60,8 @@ h3 {
   text-align: center;
 }
 
-#formFooter {
+.formFooter {
+  font-family: sans-serif;
   background-color: #f6f6f6;
   border-top: 1px solid #dce8f1;
   padding: 25px;
@@ -79,8 +80,6 @@ h2.active {
   color: #f1b3be;
   border-bottom: 2px solid #ffc0cb;
 }
-
-
 
 /* FORM TYPOGRAPHY*/
 

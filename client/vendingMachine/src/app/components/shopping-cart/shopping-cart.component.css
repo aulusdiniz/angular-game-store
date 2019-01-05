@@ -6,11 +6,11 @@ ul {
     overflow: hidden;
     background-color: #333;
   }
-  
+
   li {
     float: left;
   }
-  
+
   li a {
     display: block;
     color: white;
@@ -18,7 +18,7 @@ ul {
     padding: 14px 16px;
     text-decoration: none;
   }
-  
+
   li a:hover {
     background-color: pink;
   }
@@ -27,11 +27,9 @@ ul {
     background-color: blanchedalmond;
   }
   .picture_container {
-    
-         align-content: flex-end;
-         justify-content: center;
-         border: 2px solid red;
-    
+    /* align-content: flex-end;
+    justify-content: center;
+    border: 2px solid red; */
   }
   div.gallery {
     margin: 5px;
@@ -50,7 +48,7 @@ ul {
     align-content: center;
     padding: 10%;
     background-color: rgb(187, 151, 176);
-    justify-content:flex-start; 
+    justify-content:flex-start;
     /*align-items: flex-start;*/
     /* align-content: flex-start; */
   }
@@ -73,56 +71,46 @@ ul {
   }
 
 
-  .textForTittle{
-      text-align: center;
-      padding-top: 10%;
+  .textForTitle{
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 2rem;
   }
-
- 
-
 
   .picture{
       max-width: 200px ;
       height: 200px ;
       /* border: 2px solid green; */
-      
+
   }
+
   .centerEverything{
       align-content: center;
       align-items: flex-end;
       /* border: 2px solid blue; */
       text-align: center;
   }
-  .button1 {
+
+  .purchaseButton{
     background-color:  palevioletred;
     color: antiquewhite;
-    box-shadow:  0 6px 20px 0 rosybrown;
-    padding: 1.5px;
-    width: 50px;
-    height: 25px;
-
-   }
-   .purchaseButton{
-    background-color:  palevioletred;
-    color: antiquewhite;
-    box-shadow:  0 6px 20px 0 rosybrown;
-    padding: 1.5px;
-       margin: 10px;
-       width: 80px;
-       height: 30px;
-
+    box-shadow:  0 1px 20px 0 rosybrown;
+    border-radius: 20px;
+    border-style: none;
+    width: 120px;
+    height: 35px;
+    margin: 5px;
    }
 
    .bannerPic{
       width: 100%;
-       
    }
 
    hr.style-one {
     border: 0;
     height: 1px;
     background: #333;
-    width: 1000px;
+    width: 75%;
     background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
     background-image: -moz-linear-gradient(left, #ccc, #333, #ccc);
     background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
@@ -130,7 +118,7 @@ ul {
    }
    .textForPurchase{
     text-align : center;
-    
+
    }
 
    .amountButton{
@@ -139,10 +127,10 @@ ul {
        width: 100px;
        height:50px;
        align-items: center;
-       
+
        padding: 1.5px;
-      
-    
+
+
 
    }
    .textForAmount{
@@ -150,7 +138,45 @@ ul {
     padding-top: 10%;
     color: antiquewhite;
     background-color: palevioletred;
-    
+
     align-items: center;
 
    }
+
+   hr.style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    width: 75%;
+    background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
+    background-image: -moz-linear-gradient(left, #ccc, #333, #ccc);
+    background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
+    background-image: -o-linear-gradient(left, #ccc, #333, #ccc);
+}
+
+.shoppingTable {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding: 5%;
+  font-size: 18px;
+  background-color: rgb(248, 242, 241);
+  box-shadow: 3px 8px 15px 5px grey;
+}
+
+.bgPicture {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: calc(100%);
+}
+
+.bgPic {
+  /* height: 150%; */
+  /* transform: rotateZ(180deg); */
+  top: 220px;
+  width: calc(100% - 15px);
+  position: absolute;
+  opacity: 0.15;
+  z-index: -1;
+}

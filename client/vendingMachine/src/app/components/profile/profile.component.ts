@@ -10,15 +10,20 @@ import { UsersService } from 'src/app/services/users.service';
 
 })
 export class ProfileComponent implements OnInit {
+
   public deposit: number;
-  constructor(public _usersService: UsersService) { }
+  public user: any;
+
+  constructor(private usersService: UsersService) { }
 
   ngOnInit() {
-
+    // this.user = localStorage.logged;
+    this.deposit = 0;
+    this.user = this.usersService.getUser();
   }
 
   public increaseBalance() {
-    this._usersService.increaseAmount(this.deposit)
+    this.usersService.increaseAmount(this.deposit)
     .subscribe(
       (res) => {console.log(res)},
       (error) => {console.log(error)}

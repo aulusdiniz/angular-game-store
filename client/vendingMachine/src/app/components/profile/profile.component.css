@@ -1,37 +1,59 @@
 .titleProfile {
-    text-align: center;
-    padding-top: 6%;
+  font-family: sans-serif;
+  text-align: center;
+  padding-top: 6%;
 }
 
 hr.style-one {
-    border: 0;
-    height: 1px;
-    background: #333;
-    width: 1000px;
-    background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
-    background-image: -moz-linear-gradient(left, #ccc, #333, #ccc);
-    background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
-    background-image: -o-linear-gradient(left, #ccc, #333, #ccc);
+  border: 0;
+  height: 1px;
+  background: #333;
+  width: 1000px;
+  background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
+  background-image: -moz-linear-gradient(left, #ccc, #333, #ccc);
+  background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
+  background-image: -o-linear-gradient(left, #ccc, #333, #ccc);
+}
+
+.label {
+  font-family: sans-serif;
+  font-size: 0.9rem;
+  float: left;
+  padding: 10px;
+}
+
+.credit-charge{
+  float: left;
+  padding: 10px;
+}
+
+.credit-charge input{
+  float: left;
+  padding: 10px;
+  width: 90%;
 }
 
 .depositTable {
-    text-align: center;
-    padding: 5%;
-    margin-top: 5%;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: rgb(248, 242, 241);
-    font-size: 18px;
-    box-shadow: 3px 8px 15px 5px grey;
+  font-family: sans-serif;
+  text-align: center;
+  padding: 5%;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgb(248, 242, 241);
+  font-size: 18px;
+  box-shadow: 3px 8px 15px 5px grey;
 }
 
 .depositBtn {
-    background-color:  palevioletred;
-    color: antiquewhite;
-    box-shadow:  0 6px 20px 0 rosybrown;
-    padding: 1.5px;
-    width: 80px;
-    height: 25px;
+  background-color:  palevioletred;
+  color: antiquewhite;
+  box-shadow:  0 1px 20px 0 rosybrown;
+  border-radius: 20px;
+  border-style: none;
+  width: 120px;
+  height: 35px;
+  margin: 5px;
 }
 
 .user {
@@ -40,7 +62,7 @@ hr.style-one {
 }
 
 #bgPic {
-    width: 100%;
+    width: calc(100% - 15px);
     position: absolute;
     opacity: 0.15;
     z-index: -1;

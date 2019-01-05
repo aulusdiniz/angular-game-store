@@ -4,13 +4,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { AuthProvider } from './providers/auth.provider';
-
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +18,7 @@ import { AuthProvider } from './providers/auth.provider';
     HomePageComponent,
     HomePageComponent,
     MenuComponent,
+    ProfileComponent,
     ShoppingCartComponent
   ],
   imports: [
@@ -26,7 +26,7 @@ import { AuthProvider } from './providers/auth.provider';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthProvider

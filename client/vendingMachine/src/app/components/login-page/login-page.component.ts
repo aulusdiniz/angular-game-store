@@ -12,6 +12,7 @@ import { UsersService } from 'src/app/services/users.service';
 export class LoginPageComponent implements OnInit {
   updateFormBuilder: any;
   fType: any;
+  registerResponse: any;
   // router: Router;
 
   constructor(private authProvider: AuthProvider, private formBuilder: FormBuilder,
@@ -21,24 +22,27 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit() {
     this.fType = 'signin';
-    console.log(this.route.paramMap);
   }
 
   save() {
     let payload = this.updateFormBuilder.value;
-    let result = this.authProvider.register(payload).then((res) => {
-      console.log("result: ", res);
+    let result = this.authProvider.register(payload).then((res: any) => {
+      if(res){
+        this.registerResponse = res.status;
+      }
     });
   }
 
   login(){
     let payload = this.updateFormBuilder.value;
     let result = this.authProvider.login(payload).then((res: any) => {
-      console.log("result: ", res);
-      if(res.status == 'authorized') {
-        localStorage.setItem('logged', payload.login);
-        this.usersService.currentUser = payload;
-        this.router.navigate(['/home']);
+      if(res) {
+        if(res.status == 'authorized') {
+          localStorage.setItem('logged', payload.login);
+          this.usersService.setUser(payload);
+          this.router.navigate(['/']);
+        }
+        this.registerResponse = res.status;
       }
     });
   }
@@ -53,7 +57,7 @@ export class LoginPageComponent implements OnInit {
 
   //the form is for sign up ou sign in?
   UIFormControl(type) {
+    this.registerResponse = false;
     return (type=="signup")? this.fType = "signup" : this.fType = "signin"
   }
-
 }
