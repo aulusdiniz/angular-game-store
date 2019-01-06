@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ReturnStatement } from '@angular/compiler';
 
@@ -10,19 +10,20 @@ export class UsersService {
   public userBalance: any;
   public currentUser: any;
 
-  constructor(private _httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient) {
+    this.load();
+  }
+
+  public load() {
     this.currentUser = localStorage.logged;
     this.getUserBalance().subscribe((result: any) => {
       this.userBalance = result.cash;
+      console.log("userBalance", this.userBalance);
     });
   }
 
   public getUserBalance(): Observable<Object> {
-    return this._httpClient.get('http://localhost:3000/cash')
-  }
-
-  public payAmount(amount: number): Observable<Object> {
-    return this._httpClient.post('http://localhost:3000/payCash', {amount: amount})
+    return this.httpClient.get('http://localhost:3000/cash')
   }
 
   public getUser(){
@@ -32,13 +33,13 @@ export class UsersService {
   }
 
   public setUser(user: any){
-    console.log(this.currentUser);
     this.currentUser = user;
+    console.log(this.currentUser);
   }
 
   //increase amount
   public increaseAmount (increased: number): Observable<Object> {
-    return this._httpClient.post('http://localhost:3000/increaseCash', {increased: increased})
+    console.log("making post..")
+    return this.httpClient.post('http://localhost:3000/increaseCash', { increased: increased })
   }
-  //end of increase amount
 }

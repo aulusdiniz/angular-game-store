@@ -8,8 +8,24 @@ app.use(cors());
 app.use( bodyParser.json());
 // app.use(bodyParser.urlencoded({extended: true}));
 
+  let userSample = {
+    login: 'Ralph Warren',
+    password: '123456',
+    cash: 0,
+    orders: [{
+      id: 1,
+      quantity: 10,
+      price: 35,
+      category: ["Lipstick", "Our Best Sellers"],
+      name: "Rouge Allure",
+      image: "/../../assets//pictures/lipsticks_chanel/lipstick1.png",
+      shippingStatus: "sent to receiver",
+      address: "some where in the world"
+    }]
+  }
+
   let userCash = 500;
-  let users:any = [];
+  let users: Array<any> = [{ login: 'user', password: '123', cash: 500, orders: []}];
   let productList: Array<any> =[
     {name: "Rouge Allure", price: 35, quantity: 10, id: 1, category: ["Lipstick", "Our Best Sellers"], image: "/../../assets//pictures/lipsticks_chanel/lipstick1.png"},
     {name: "Rouge COCO Stylo", price: 30, quantity: 10, id: 2, category: ["Lipstick"], image: "/../../assets//pictures/lipsticks_chanel/lipstick2.png"},
@@ -31,62 +47,87 @@ app.use( bodyParser.json());
     {name: "Eye Crayon", price: 19.99, quantity: 10, id: 18, category: ["Eyeliner"], image:"../../../assets//pictures/eyeliner_lancome/eyeliner3.png"},
   ];
 
-app.get('/items', (request, response) => {
-  response.send(productList);
-});
-
-app.post('/items', (request, response) => {
-  console.log(request.body.id === productList[9].id);
-  productList.forEach(product => {
-      if (product.id === request.body.id) {
-        product.quantity = request.body.quantity;
-      }
+  //register regular users login & passwd
+  app.post('/register', (request, response) => {
+    console.log("[debug] receiving on /register :", request.body);
+    let data = request.body;
+    let checkCreated = users.filter((x:any) => x.login == data.login);
+    if(checkCreated.length == 0) users.push({
+      login: data.login,
+      password: data.password,
+      cash: 0,
+      orders: []
+    }); //keeps admin injections via post away
+    else response.send({ status: "this user already exist" });
+    response.send({ status: "user created now" });
   });
-  response.send('Ok');
-});
 
-app.get('/cash', (request, response) => {
-  response.send({cash: userCash});
-});
+  //verify if the sent login & passwd is in data structure 'users'
+  app.post('/login', (request, response) => {
+    console.log("[debug] receiving on /login :", request.body);
+    let data = request.body;
+    let userFound = users.filter((x:any) => x.login == data.login)[0] || undefined;
+    if(userFound != undefined && userFound.password == data.password) response.send({ status: 'authorized' });
+    else response.send({ status: 'unauthorized' });
+  });
 
-app.post('/payCash', (request, response) => {
-  var amountPayed = request.body.amount;
-  userCash -= amountPayed;
-  // userCash = userCash - amountPayed
-  response.send('got it');
-});
+  //list all users
+  app.get('/users', (request, response) => {
+    console.log("[debug] receiving [GET] on /users :", request.body);
+    response.send(users);
+  });
 
-//increase amount
-app.post('/increaseCash', (request, response) => {
-  var amountIncreased = request.body.increased;
-  userCash += amountIncreased;
-  response.send('got it');
-});
-//end of increase amount
+  // TODO: adapt Router for manage better params
+  // app.get('/users/:id', (request, response) => {
+  //   console.log("[debug] receiving [GET] on /users :", request.param.id);
+  //   response.send(users);
+  // });
 
-//register regular users login & passwd
-app.post('/register', (request, response) => {
-  console.log("[debug] receiving on /register :", request.body);
-  let data = request.body;
-  let checkCreated = users.filter((x:any) => x.login == data.login);
-  if(checkCreated.length == 0) users.push({ login: data.login, password: data.password }); //keeps admin injections via post away
-  else response.send({ status: "this user already exist" });
-  response.send({ status: "user created now" });
-});
+  app.get('/items', (request, response) => {
+    console.log("[debug] receiving  [GET] on /items :", request.body);
+    response.send(productList);
+  });
 
-//verify if the sent login & passwd is in data structure 'users'
-app.post('/login', (request, response) => {
-  console.log("[debug] receiving on /login :", request.body);
-  let data = request.body;
-  let userFound = users.filter((x:any) => x.login == data.login)[0] || undefined;
-  if(userFound != undefined && userFound.password == data.password) response.send({ status: 'authorized' });
-  else response.send({ status: 'unauthorized' });
-});
+  app.post('/purchase', (request, response) => {
+    console.log("[debug] receiving  [POST] on /purchase :", request.body);
+    let totalBill = 0;
+    let order = request.body;
 
-//list all users
-app.get('/users', (request, response) => {
-  console.log("[debug] receiving on /users :", request.body);
-  response.send(users);
-});
+    order.products.forEach((product: any) => {
+      totalBill += product.price;
+      productList.forEach(stockProduct => {
+        if (stockProduct.id === product.id && stockProduct.quantity > 0) {
+          stockProduct.quantity -= 1;
+        } else if( stockProduct.id === product.id && stockProduct.quantity < 1){
+          response.send({ status: 'fail' })
+          return;
+        }
+      });
+    });
 
-app.listen(3000, '0.0.0.0', () => console.log('Listening on (0.0.0.0:3000)'));
+    // get user index for update data (little trick)
+    let index = users.map((usr: any) => usr.login).indexOf(order.user.login);
+    if( users[index].cash >= totalBill ){
+      users[index].cash -= totalBill;
+      users[index].orders.push(order.products);
+      users[index].orders = [].concat.apply([], users[index].orders); //flat array
+    }
+
+    response.send({ status: 'success'});
+  });
+
+  app.get('/cash', (request, response) => {
+    console.log("[debug] receiving  [GET] on /cash :", request.body);
+    response.send({cash: userCash});
+  });
+
+  //increase amount
+  app.post('/increaseCash', (request, response) => {
+  console.log("[debug] receiving  [POST] on /increaseCash :", request.body);
+    let amountIncreased = request.body.increased;
+    userCash += amountIncreased;
+    response.send({ userCash: userCash });
+  });
+  //end of increase amount
+
+  app.listen(3000, '0.0.0.0', () => console.log('Listening on (0.0.0.0:3000)'));

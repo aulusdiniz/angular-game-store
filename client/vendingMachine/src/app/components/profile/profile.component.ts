@@ -20,15 +20,15 @@ export class ProfileComponent implements OnInit {
     // this.user = localStorage.logged;
     this.deposit = 0;
     this.user = this.usersService.getUser();
+    this.usersService.load();
   }
 
-  public increaseBalance() {
-    this.usersService.increaseAmount(this.deposit)
-    .subscribe(
-      (res) => {console.log(res)},
-      (error) => {console.log(error)}
-    )
+  increaseBalance() {
+    console.log(this.deposit);
+    this.usersService.increaseAmount(this.deposit);
     this.deposit = 0;
-    window.location.reload();
+    // window.location.reload();
+    this.usersService.load();
+    console.log(this.usersService.userBalance);
   }
 }

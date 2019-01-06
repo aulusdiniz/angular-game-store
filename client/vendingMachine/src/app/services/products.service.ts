@@ -15,6 +15,7 @@ export class ProductsService {
   public shoppingCartList: Array<any> = [];
   public categoriesTitle: string;
   public allProductsList: Array<any>;
+  public totalBill: number = 0;
 
   constructor(private usersService: UsersService, private httpClient: HttpClient, private router: Router) {
     this.getProducts()
@@ -25,28 +26,51 @@ export class ProductsService {
       });
   }
 
-  private getProducts() {
+  public getProducts() {
     return this.httpClient.get('http://localhost:3000/items');
   }
 
   //add to cart button
   public addToCart(productId) {
-  console.log("currentUser", this.usersService.currentUser);
     if(!this.usersService.currentUser || this.usersService.currentUser == undefined ) {
       this.router.navigate(['/login']);
     }
     this.productList.forEach(product => {
-      if (product.id === productId && product.quantity > 1) {
+      if (product.id === productId && product.quantity > 0) {
         product.quantity -= 1;
         this.shoppingCartList.push(product);
-      } else if (product.id === productId && product.quantity <= 1) {
+      } else if (product.id === productId && product.quantity < 1) {
         product.quantity = 'Out of stock';
       }
     });
   }
 
-  private decreaseQuantity(item) {
-    return this.httpClient.post('http://localhost:3000/items', item);
+  public buyProduct() {
+    this.totalBill = this.calculateTotal();
+    if (this.usersService.userBalance >= this.totalBill) {
+      this.purchase({
+        products: this.shoppingCartList,
+        user: { login: localStorage.logged } // change later to use from users.service
+      })
+      .subscribe((res: any) => {
+        console.log(res);
+        if(res.status == 'fail'){
+          // TODO: create reverse purchase logic to fix product.quantity on page.
+        }
+      });
+    }
+  }
+
+  public purchase(order) {
+    return this.httpClient.post('http://localhost:3000/purchase', order);
+  }
+
+  public calculateTotal() {
+    let totalBill = 0;
+    this.shoppingCartList.forEach(product => {
+      totalBill += product.price;
+    });
+    return totalBill;
   }
 
   public filterByCategory(categoryName) {
@@ -56,63 +80,10 @@ export class ProductsService {
     this.categoriesTitle = categoryName;
   }
 
-
   public filterBest(categoryName) {
     this.displayProductList = this.productList.filter(product => {
       return product.category[1] === categoryName;
     });
     this.categoriesTitle = categoryName;
   }
-
-  // //Puchase
-  // public buyProduct(productId) {
-  //   this.productList.forEach(product => {
-  //     if (product.id === productId && product.quantity > 0) {
-  //       if (this.usersService.currentUser.balance >= product.price) {
-  //         product.quantity -= 1;
-  //         this.usersService.currentUser.balance -= product.price;
-  //       }
-
-  //     }
-  //   });
-  // }
-  public getSumProducts() {
-    let sumProducts = 0;
-    this.shoppingCartList.forEach(product => {
-      sumProducts += product.price;
-    });
-    return sumProducts;
-  }
-
-  public sumProducts: number = 0;
-
-  public buyProduct() {
-    this.sumProducts = this.getSumProducts();
-    if (this.usersService.userBalance >= this.sumProducts) {
-      this.shoppingCartList.forEach(product => {
-        this.decreaseQuantity(product)
-          .subscribe(res => console.log(res));
-      });
-      this.sumProducts.toFixed(2);
-
-      this.usersService.payAmount(this.sumProducts)
-        .subscribe(
-          (result) => {console.log(result)},
-          (error) => {console.log(error)}
-        )
-    }
-
-    //  if (this.usersService.getUser().balance >= this.sumProducts) {
-    //     this.usersService.currentUser.balance -= this.sumProducts;
-    //  };
-  }
-
-  public getTotal() {
-    let total = 0;
-    this.shoppingCartList.forEach(product => {
-      total += product.price;
-    });
-    return total;
-  }
-
 }

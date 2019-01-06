@@ -11,12 +11,10 @@ export class ShoppingCartComponent implements OnInit {
   public totalPrice;
 
   constructor(public productsService: ProductsService) {
-    this.totalPrice = productsService.getTotal();
-
+    this.totalPrice = productsService.calculateTotal();
   }
-  
 
   ngOnInit() {
-  }
 
+  }
 }

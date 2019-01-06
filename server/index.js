@@ -11,8 +11,23 @@ var app = express_1.default();
 app.use(cors());
 app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({extended: true}));
+var userSample = {
+    login: 'Ralph Warren',
+    password: '123456',
+    cash: 0,
+    orders: [{
+            id: 1,
+            quantity: 10,
+            price: 35,
+            category: ["Lipstick", "Our Best Sellers"],
+            name: "Rouge Allure",
+            image: "/../../assets//pictures/lipsticks_chanel/lipstick1.png",
+            shippingStatus: "sent to receiver",
+            address: "some where in the world"
+        }]
+};
 var userCash = 500;
-var users = [];
+var users = [{ login: 'user', password: '123', cash: 500, orders: [] }];
 var productList = [
     { name: "Rouge Allure", price: 35, quantity: 10, id: 1, category: ["Lipstick", "Our Best Sellers"], image: "/../../assets//pictures/lipsticks_chanel/lipstick1.png" },
     { name: "Rouge COCO Stylo", price: 30, quantity: 10, id: 2, category: ["Lipstick"], image: "/../../assets//pictures/lipsticks_chanel/lipstick2.png" },
@@ -33,41 +48,18 @@ var productList = [
     { name: "Eyeliner", price: 19.99, quantity: 10, id: 17, category: ["Eyeliner"], image: "../../../assets//pictures/eyeliner_lancome/eyeliner2.png" },
     { name: "Eye Crayon", price: 19.99, quantity: 10, id: 18, category: ["Eyeliner"], image: "../../../assets//pictures/eyeliner_lancome/eyeliner3.png" },
 ];
-app.get('/items', function (request, response) {
-    response.send(productList);
-});
-app.post('/items', function (request, response) {
-    console.log(request.body.id === productList[9].id);
-    productList.forEach(function (product) {
-        if (product.id === request.body.id) {
-            product.quantity = request.body.quantity;
-        }
-    });
-    response.send('Ok');
-});
-app.get('/cash', function (request, response) {
-    response.send({ cash: userCash });
-});
-app.post('/payCash', function (request, response) {
-    var amountPayed = request.body.amount;
-    userCash -= amountPayed;
-    // userCash = userCash - amountPayed
-    response.send('got it');
-});
-//increase amount
-app.post('/increaseCash', function (request, response) {
-    var amountIncreased = request.body.increased;
-    userCash += amountIncreased;
-    response.send('got it');
-});
-//end of increase amount
 //register regular users login & passwd
 app.post('/register', function (request, response) {
     console.log("[debug] receiving on /register :", request.body);
     var data = request.body;
     var checkCreated = users.filter(function (x) { return x.login == data.login; });
     if (checkCreated.length == 0)
-        users.push({ login: data.login, password: data.password }); //keeps admin injections via post away
+        users.push({
+            login: data.login,
+            password: data.password,
+            cash: 0,
+            orders: []
+        }); //keeps admin injections via post away
     else
         response.send({ status: "this user already exist" });
     response.send({ status: "user created now" });
@@ -84,7 +76,53 @@ app.post('/login', function (request, response) {
 });
 //list all users
 app.get('/users', function (request, response) {
-    console.log("[debug] receiving on /users :", request.body);
+    console.log("[debug] receiving [GET] on /users :", request.body);
     response.send(users);
 });
+// TODO: adapt Router for manage better params
+// app.get('/users/:id', (request, response) => {
+//   console.log("[debug] receiving [GET] on /users :", request.param.id);
+//   response.send(users);
+// });
+app.get('/items', function (request, response) {
+    console.log("[debug] receiving  [GET] on /items :", request.body);
+    response.send(productList);
+});
+app.post('/purchase', function (request, response) {
+    console.log("[debug] receiving  [POST] on /purchase :", request.body);
+    var totalBill = 0;
+    var order = request.body;
+    order.products.forEach(function (product) {
+        totalBill += product.price;
+        productList.forEach(function (stockProduct) {
+            if (stockProduct.id === product.id && stockProduct.quantity > 0) {
+                stockProduct.quantity -= 1;
+            }
+            else if (stockProduct.id === product.id && stockProduct.quantity < 1) {
+                response.send({ status: 'fail' });
+                return;
+            }
+        });
+    });
+    // get user index for update data (little trick)
+    var index = users.map(function (usr) { return usr.login; }).indexOf(order.user.login);
+    if (users[index].cash >= totalBill) {
+        users[index].cash -= totalBill;
+        users[index].orders.push(order.products);
+        users[index].orders = [].concat.apply([], users[index].orders); //flat array
+    }
+    response.send({ status: 'success' });
+});
+app.get('/cash', function (request, response) {
+    console.log("[debug] receiving  [GET] on /cash :", request.body);
+    response.send({ cash: userCash });
+});
+//increase amount
+app.post('/increaseCash', function (request, response) {
+    console.log("[debug] receiving  [POST] on /increaseCash :", request.body);
+    var amountIncreased = request.body.increased;
+    userCash += amountIncreased;
+    response.send({ userCash: userCash });
+});
+//end of increase amount
 app.listen(3000, '0.0.0.0', function () { return console.log('Listening on (0.0.0.0:3000)'); });
