@@ -11,24 +11,29 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class ProfileComponent implements OnInit {
 
-  public deposit: number;
-  public user: any;
+  private deposit: number;
+  private user: any;
 
   constructor(private usersService: UsersService) { }
 
   ngOnInit() {
+    this.init();
+  }
+
+  async init(){
     // this.user = localStorage.logged;
     this.deposit = 0;
-    this.user = this.usersService.getUser();
     this.usersService.load();
+    this.user = await this.usersService.getUser();
+    console.log(this.user, "<<")
   }
 
   increaseBalance() {
     console.log(this.deposit);
-    this.usersService.increaseAmount(this.deposit);
-    this.deposit = 0;
-    // window.location.reload();
     this.usersService.load();
+    this.deposit = 0;
+    this.usersService.increaseAmount(this.deposit);
     console.log(this.usersService.userBalance);
+    // window.location.reload();
   }
 }

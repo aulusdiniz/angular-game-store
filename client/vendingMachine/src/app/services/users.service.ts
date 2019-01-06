@@ -14,27 +14,25 @@ export class UsersService {
     this.load();
   }
 
-  public load() {
-    this.currentUser = localStorage.logged;
-    this.getUserBalance().subscribe((result: any) => {
-      this.userBalance = result.cash;
-      console.log("userBalance", this.userBalance);
+  public async load() {
+    return await this.getUser();
+  }
+
+  public async getUser(){
+    // refresh the user
+    return await this.requestUser().then((res: any) => {
+      this.currentUser = res;
+      return this.currentUser;
     });
   }
 
-  public getUserBalance(): Observable<Object> {
-    return this.httpClient.get('http://localhost:3000/cash')
-  }
-
-  public getUser(){
-    console.log(this.currentUser);
-    this.currentUser = localStorage.logged;
-    return this.currentUser;
-  }
-
-  public setUser(user: any){
-    this.currentUser = user;
-    console.log(this.currentUser);
+  public requestUser() {
+    return new Promise(resolve => {
+      this.httpClient.get(`http://localhost:3000/users/${localStorage.logged}`)
+      .subscribe(res => {
+        resolve(res);
+      });
+    });
   }
 
   //increase amount

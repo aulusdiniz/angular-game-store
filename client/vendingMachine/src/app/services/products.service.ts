@@ -47,22 +47,23 @@ export class ProductsService {
 
   public buyProduct() {
     this.totalBill = this.calculateTotal();
-    if (this.usersService.userBalance >= this.totalBill) {
-      this.purchase({
-        products: this.shoppingCartList,
-        user: { login: localStorage.logged } // change later to use from users.service
-      })
-      .subscribe((res: any) => {
-        console.log(res);
-        if(res.status == 'fail'){
-          // TODO: create reverse purchase logic to fix product.quantity on page.
-        }
-      });
-    }
+    if (this.usersService.userBalance < this.totalBill) return;
+    this.purchase({
+      products: this.shoppingCartList, user: localStorage.logged // change later to use from users.service
+    });
   }
 
   public purchase(order) {
-    return this.httpClient.post('http://localhost:3000/purchase', order);
+    return new Promise(resolve => {
+      this.httpClient.post('http://localhost:3000/purchase', order)
+      .subscribe((res: any) => {
+        console.log("buying ", res);
+        if(res.status == 'fail'){
+          // TODO: create reverse purchase logic to fix product.quantity on page.
+        }
+        resolve(res);
+      });
+    });
   }
 
   public calculateTotal() {

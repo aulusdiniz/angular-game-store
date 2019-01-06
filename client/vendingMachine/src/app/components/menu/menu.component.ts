@@ -10,25 +10,25 @@ import { Router } from "@angular/router"
 })
 export class MenuComponent implements OnInit {
 
-  public userLogged: any;
-  public userDetail: Boolean;
+  private userLogged: any;
+  private userDetail: Boolean;
   private userCash: number;
+  private user: any;
 
   constructor(private productsService: ProductsService, private usersService: UsersService,
-    private router: Router) { }
+    private router: Router) {
+      this.refresh();
+    }
 
   ngOnInit() {
-    this.userLogged = localStorage.logged || "Log in";
-    this.usersService.getUserBalance()
-      .subscribe(
-        (result: any) => {
-          console.log(result);
-          this.userCash = result.cash;
-        },
-        (error) => {
-          console.log(error);
-        }
-      )
+  }
+
+  async refresh() {
+    this.usersService.load();
+    this.user = await this.usersService.getUser();
+
+    this.userLogged = this.user.login || "Log in";
+    this.userCash = this.user.cash || 0;
   }
 
   showDetails() {
@@ -39,8 +39,7 @@ export class MenuComponent implements OnInit {
     localStorage.logged = "";
     this.userLogged = "Log in";
     this.userDetail = false;
+    this.user = undefined;
     this.router.navigate(['/']);
   }
-
-
 }

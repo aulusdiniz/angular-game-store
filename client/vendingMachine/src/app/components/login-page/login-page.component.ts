@@ -13,7 +13,6 @@ export class LoginPageComponent implements OnInit {
   updateFormBuilder: any;
   fType: any;
   registerResponse: any;
-  // router: Router;
 
   constructor(private authProvider: AuthProvider, private formBuilder: FormBuilder,
      private router: Router, private route: ActivatedRoute, private usersService: UsersService) {
@@ -39,7 +38,7 @@ export class LoginPageComponent implements OnInit {
       if(res) {
         if(res.status == 'authorized') {
           localStorage.setItem('logged', payload.login);
-          this.usersService.setUser(payload);
+          // this.usersService.getUser();
           this.router.navigate(['/']);
         }
         this.registerResponse = res.status;

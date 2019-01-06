@@ -1,12 +1,12 @@
 <app-menu></app-menu>
 <img id="bgPic" src="/../../assets//pictures/background/b4.jpg" alt="">
 
-<h1 class="titleProfile">Hi, {{ user | titlecase }}</h1>
+<h1 class="titleProfile">Hi, {{ user.login | titlecase }}</h1>
 <form #f="ngForm">
   <table class="depositTable">
     <img class="user" src="/../../assets//pictures/user2.png" alt=""> <br>
-    <div>Name: {{ user | titlecase }}</div>
-    <div>Cash: {{ usersService.userBalance | currency }}</div>
+    <div>Name: {{ user.login | titlecase }}</div>
+    <div>Cash: {{ user.cash | currency }}</div>
     <br>
     <div>
       Do you want deposit some value?
