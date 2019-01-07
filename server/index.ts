@@ -14,9 +14,7 @@ app.use( bodyParser.json());
     cash: 0,
     orders: [{
       id: 1,
-      quantity: 10,
       price: 35,
-      category: ["Lipstick", "Our Best Sellers"],
       name: "Rouge Allure",
       image: "/../../assets//pictures/lipsticks_chanel/lipstick1.png",
       shippingStatus: "sent to receiver",
@@ -25,7 +23,7 @@ app.use( bodyParser.json());
   }
 
   let userCash = 500;
-  let users: Array<any> = [{ login: 'user', password: '123', cash: 500, orders: []}];
+  let users: Array<any> = [{ login: 'user', password: '123', cash: 500, orders: [], payments: []}];
   let productList: Array<any> =[
     {name: "Rouge Allure", price: 35, quantity: 10, id: 1, category: ["Lipstick", "Our Best Sellers"], image: "/../../assets//pictures/lipsticks_chanel/lipstick1.png"},
     {name: "Rouge COCO Stylo", price: 30, quantity: 10, id: 2, category: ["Lipstick"], image: "/../../assets//pictures/lipsticks_chanel/lipstick2.png"},
@@ -56,9 +54,13 @@ app.use( bodyParser.json());
       login: data.login,
       password: data.password,
       cash: 0,
-      orders: []
+      orders: [],
+      payments: []
     }); //keeps admin injections via post away
-    else response.send({ status: "this user already exist" });
+    else {
+      response.send({ status: "this user already exist" });
+      return;
+    }
     response.send({ status: "user created now" });
   });
 
@@ -74,14 +76,22 @@ app.use( bodyParser.json());
   //list all users
   app.get('/users', (request, response) => {
     console.log("[debug] receiving [GET] on /users :", request.body);
-    response.send(users);
+    const result = users.map((usr: any) => usr.login);
+    response.send(result);
   });
 
   // TODO: adapt Router for manage better params
-  // app.get('/users/:id', (request, response) => {
-  //   console.log("[debug] receiving [GET] on /users :", request.param.id);
-  //   response.send(users);
-  // });
+  app.get('/users/:id', (request, response) => {
+    console.log("[debug] receiving [GET] on /users/:id :", request.params.id);
+    let user = request.params.id;
+    let index = users.map((usr: any) => usr.login).indexOf(user);
+    if(index < 0){
+      response.send({ status: 'fail' });
+      return;
+    }
+    console.log(users[index]);
+    response.send(users[index]);
+  });
 
   app.get('/items', (request, response) => {
     console.log("[debug] receiving  [GET] on /items :", request.body);
@@ -106,13 +116,18 @@ app.use( bodyParser.json());
     });
 
     // get user index for update data (little trick)
-    let index = users.map((usr: any) => usr.login).indexOf(order.user.login);
-    if( users[index].cash >= totalBill ){
-      users[index].cash -= totalBill;
-      users[index].orders.push(order.products);
-      users[index].orders = [].concat.apply([], users[index].orders); //flat array
+    let index = users.map((usr: any) => usr.login).indexOf(order.user);
+
+    if( users[index].cash < totalBill ){
+      response.send({ status: 'fail' })
+      return;
     }
 
+    users[index].cash -= totalBill;
+    users[index].orders.push(order.products);
+    users[index].payments.push(order.form);
+    users[index].orders = [].concat.apply([], users[index].orders); //flat array
+    console.log(users[index]);
     response.send({ status: 'success'});
   });
 
