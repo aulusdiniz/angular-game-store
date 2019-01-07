@@ -17,7 +17,7 @@
 
 <div class="pop-user-info" *ngIf="userDetail">
   <a [routerLink]="['/profile']"><i class="material-icons">perm_identity</i>{{ userLogged | titlecase }}</a>
-  <a><i class="material-icons">local_atm</i> {{ userCash | currency }}</a>
+  <!-- <a><i class="material-icons">local_atm</i> {{ userCash | currency }}</a> -->
   <a [routerLink]="['/shoppingcart']"><i class="material-icons">local_grocery_store</i>View cart</a>
   <a (click)="clearLogin()"><i class="material-icons">meeting_room</i>Logout</a>
 </div>

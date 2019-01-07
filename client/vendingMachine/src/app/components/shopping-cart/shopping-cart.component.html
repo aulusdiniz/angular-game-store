@@ -15,7 +15,7 @@
   </span>
 
     <div *ngIf="totalPrice>0">
-      <div><h2>1. You are ordering the following items</h2></div>
+      <div><h2>You are ordering the following items</h2></div>
       <br>
       <div class="flexboxContainer">
         <div style="border:2px" *ngFor="let product of productsService.shoppingCartList">
@@ -32,23 +32,26 @@
           </div>
         </div>
       </div>
-
+      <hr class="style-one">
+      <br><br>
       <div>
-        <h2>2. Complete the payment here</h2>
+        <h2>Complete the payment</h2>
       </div>
       <div class="credit-charge">
-        <div class="label">CC Owner: </div> <input placeholder="Name" type="text" name="ccowner"><br>
-        <div class="label">CC Number: </div> <input placeholder="xxxx-xxxx-xxxx-xxxx" type="text" name="ccnumber"><br>
-        <div class="label">CVC: </div> <input placeholder="xxx" type="text" name="cvc"><br>
-        <div class="label">Date: </div> <input type="date"><br>
-        <!-- <div class="label">Value: </div> <input type="number" name="deposit" [(ngModel)]="deposit"><br> -->
-        <div class="label">
-            <h2>Your total amount is: {{totalPrice | currency}}</h2>
-        </div>
-        <div class="label" >Click the purchase button to validate your order!</div>
-        <div class="textForPurchase" >
-            <button  class="purchaseButton" (click)="buy()">Purchase</button>
-        </div>
+        <form (ngSubmit)="buy()" [formGroup]="updateFormBuilder">
+          <div class="label">CC Owner: </div> <input formControlName="cco" placeholder="Name" type="text" id="cco" name="cco"><br>
+          <div class="label">CC Number: </div> <input formControlName="ccn" placeholder="xxxx-xxxx-xxxx-xxxx" type="number" id="ccn" name="ccn"><br>
+          <div class="label">CVC: </div> <input formControlName="cvc" placeholder="xxx" type="number" id="cvc" name="cvc"><br>
+          <div class="label">Date: </div> <input formControlName="date" id="date" name="date" type="date"><br>
+          <!-- <div class="label">Value: </div> <input type="number" name="deposit" [(ngModel)]="deposit"><br> -->
+          <div class="label">
+              <h2>Your total amount is: {{totalPrice | currency}}</h2>
+          </div>
+          <!-- <div class="label" >Click the purchase button to validate your order!</div> -->
+          <div class="textForPurchase" >
+              <input type="submit" class="purchaseButton" value="Purchase">
+          </div>
+        </form>
       </div>
     </div>
   </table>

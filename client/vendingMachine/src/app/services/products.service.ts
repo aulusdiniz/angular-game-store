@@ -33,7 +33,7 @@ export class ProductsService {
   //add to cart button
   public async addToCart(productId) {
     let user = localStorage.logged;
-    console.log(user);
+    // console.log(user);
     if(!user || user == undefined || user == "" ) {
       this.router.navigate(['/login']);
     }
@@ -47,22 +47,22 @@ export class ProductsService {
     });
   }
 
-  public async buyProduct() {
+  public async buyProduct(form) {
     this.totalBill = this.calculateTotal();
     let user = await this.usersService.getUser();
-    console.log(user, "{--");
+    // console.log("--}", form);
     if (user.cash < this.totalBill) return;
     this.purchase({
-      products: this.shoppingCartList, user: localStorage.logged // change later to use from users.service
+      products: this.shoppingCartList, user: localStorage.logged, form: form // change later to use from users.service
     });
   }
 
   public purchase(order) {
-    console.log(order);
+    // console.log(order);
     return new Promise(resolve => {
       this.httpClient.post('http://localhost:3000/purchase', order)
       .subscribe((res: any) => {
-        console.log("buying ", res);
+        // console.log("buying ", res);
         if(res.status == 'success'){
           // TODO: create reverse purchase logic to fix product.quantity on page.
           this.shoppingCartList = [];
