@@ -8,18 +8,6 @@
     <div>Name: {{ user.login | titlecase }}</div>
     <div>Cash: {{ user.cash | currency }}</div>
     <br>
-    <div>
-      Do you want deposit some value?
-    </div>
-    <div class="credit-charge">
-      <div class="label">CC Owner: </div> <input placeholder="Name" type="text" name="ccowner"><br>
-      <div class="label">CC Number: </div> <input placeholder="xxxx-xxxx-xxxx-xxxx" type="text" name="ccnumber"><br>
-      <div class="label">CVC: </div> <input placeholder="xxx" type="text" name="cvc"><br>
-      <div class="label">Date: </div> <input type="date"><br>
-      <div class="label">Value: </div> <input type="number" name="deposit" [(ngModel)]="deposit"><br>
-    </div>
-    <br><br><br>
-    <button (click)="increaseBalance()" class="depositBtn">Deposit</button>
   </table>
 </form>
 

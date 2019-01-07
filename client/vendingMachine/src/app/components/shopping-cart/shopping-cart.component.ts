@@ -11,6 +11,7 @@ import { MenuComponent } from 'src/app/components/menu/menu.component';
 })
 export class ShoppingCartComponent implements OnInit {
   @ViewChild( MenuComponent ) menu: MenuComponent ;
+
   public  shoppingCartList: Array<any>;
   public totalPrice;
 

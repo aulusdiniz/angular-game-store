@@ -1,48 +1,56 @@
 <app-menu> </app-menu>
 
+<img class="bgPic" src="/../../assets//pictures/background/b5.jpg" alt="">
 <div class="bgPicture">
-  <img class="bgPic" src="/../../assets//pictures/background/b5.jpg" alt="">
-  <h1 class="textForTitle">Check Your Shopping Bag</h1>
+  <h1 class="textForTitle">Complete your order now</h1>
   <hr class="style-one">
 
   <br>
 
   <table class="shoppingTable">
 
+  <span class="empty-bag" *ngIf="totalPrice<1">
+    <i class="material-icons">sentiment_dissatisfied</i>
+    <div>You are not ordering any item, <a href="/home">return</a> to checkout our catalogs.</div>
+  </span>
 
-  <div>The items you selected are:</div>
-  <br>
-  <div class="flexboxContainer">
-      <div style="border:2px" *ngFor="let product of productsService.shoppingCartList">
-
-        <div class="row">
-          <div class="flexboxItem">
-            <div class="picturecontainer">
-              <img src="{{product.image}}" class="picture" alt="">
-            </div>
-            <div class="centerEverything">
-              <h4 class="letter">{{product.name}}</h4>
-              <h4>{{product.price | currency}}</h4>
-
+    <div *ngIf="totalPrice>0">
+      <div><h2>1. You are ordering the following items</h2></div>
+      <br>
+      <div class="flexboxContainer">
+        <div style="border:2px" *ngFor="let product of productsService.shoppingCartList">
+          <div class="row">
+            <div class="flexboxItem" id="hoverItem">
+              <div class="picturecontainer">
+                <img src="{{product.image}}" class="picture" alt="">
+              </div>
+              <div class="centerEverything">
+                <h4 class="letter">{{product.name}}</h4>
+                <h4>{{product.price | currency}}</h4>
+              </div>
             </div>
           </div>
         </div>
       </div>
-  </div>
 
-  <div class="textForPurchase">
-      Your total amount is:
-      <br>
-      <div>{{totalPrice | currency}}</div>
-  </div>
-
-  <br><br>
-  <div>Click the purchase button to validate your order!</div>
-  <br><br>
-  <div class="textForPurchase" >
-      <button  class="purchaseButton" (click)="buy()">Purchase</button>
-  </div>
-
+      <div>
+        <h2>2. Complete the payment here</h2>
+      </div>
+      <div class="credit-charge">
+        <div class="label">CC Owner: </div> <input placeholder="Name" type="text" name="ccowner"><br>
+        <div class="label">CC Number: </div> <input placeholder="xxxx-xxxx-xxxx-xxxx" type="text" name="ccnumber"><br>
+        <div class="label">CVC: </div> <input placeholder="xxx" type="text" name="cvc"><br>
+        <div class="label">Date: </div> <input type="date"><br>
+        <!-- <div class="label">Value: </div> <input type="number" name="deposit" [(ngModel)]="deposit"><br> -->
+        <div class="label">
+            <h2>Your total amount is: {{totalPrice | currency}}</h2>
+        </div>
+        <div class="label" >Click the purchase button to validate your order!</div>
+        <div class="textForPurchase" >
+            <button  class="purchaseButton" (click)="buy()">Purchase</button>
+        </div>
+      </div>
+    </div>
   </table>
 </div>
 
