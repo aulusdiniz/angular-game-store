@@ -7,7 +7,6 @@ import { ReturnStatement } from '@angular/compiler';
   providedIn: 'root'
 })
 export class UsersService {
-  public userBalance: any;
   public currentUser: any;
 
   constructor(private httpClient: HttpClient) {
@@ -15,6 +14,7 @@ export class UsersService {
   }
 
   public async load() {
+    console.log(await this.getUser()," <~~~");
     return await this.getUser();
   }
 
@@ -22,6 +22,7 @@ export class UsersService {
     // refresh the user
     return await this.requestUser().then((res: any) => {
       this.currentUser = res;
+      console.log(this.currentUser,"<<...");
       return this.currentUser;
     });
   }
@@ -33,6 +34,10 @@ export class UsersService {
         resolve(res);
       });
     });
+  }
+
+  public clear(){
+    this.currentUser = undefined;
   }
 
   //increase amount

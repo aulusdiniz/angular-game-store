@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthProvider } from '../../providers/auth.provider'
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router} from '@angular/router';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class LoginPageComponent implements OnInit {
   registerResponse: any;
 
   constructor(private authProvider: AuthProvider, private formBuilder: FormBuilder,
-     private router: Router, private route: ActivatedRoute, private usersService: UsersService) {
+     private router: Router, private usersService: UsersService) {
     this.setupFormBuilder();
   }
 

@@ -33,7 +33,6 @@ export class ProfileComponent implements OnInit {
     this.usersService.load();
     this.deposit = 0;
     this.usersService.increaseAmount(this.deposit);
-    console.log(this.usersService.userBalance);
     // window.location.reload();
   }
 }

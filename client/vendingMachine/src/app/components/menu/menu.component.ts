@@ -10,8 +10,8 @@ import { Router } from "@angular/router"
 })
 export class MenuComponent implements OnInit {
 
-  private userLogged: any;
   private userDetail: Boolean;
+  private userLogged: any;
   private userCash: number;
   private user: any;
 
@@ -21,12 +21,19 @@ export class MenuComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.refresh();
+    console.log("ngOnInit");
+  }
+
+  ngAfterViewInit() {
+    this.refresh();
+    console.log("ngAfterViewInit");
   }
 
   async refresh() {
     this.usersService.load();
     this.user = await this.usersService.getUser();
-
+    console.log(this.user,"~~~menu");
     this.userLogged = this.user.login || "Log in";
     this.userCash = this.user.cash || 0;
   }
@@ -40,6 +47,7 @@ export class MenuComponent implements OnInit {
     this.userLogged = "Log in";
     this.userDetail = false;
     this.user = undefined;
-    this.router.navigate(['/']);
+    this.usersService.clear();
+    this.router.navigate(['/home']);
   }
 }
